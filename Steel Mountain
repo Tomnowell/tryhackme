@@ -27,3 +27,5 @@ AdvancedSystemCareService9
 
 We need to overwrite the following file and then restart.
 'C:\Program Files (x86)\IObit\Advanced SystemCare\ASCService.exe'
+
+Stop the service not the process. Process stop is denied but service works fine.
