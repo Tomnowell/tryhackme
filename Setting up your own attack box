@@ -1,0 +1,58 @@
+# Setting up your own attack box
+## This week we're going to take a look at setting up your own attack box.
+
+### Whassup
+Our aim today is to set up an easily reproducible, sandboxed virtual machine on a computer. Initially this will probably by *your* computer. But my goal is a little more ambitious. I want to be able to do it easily and repeatedly on any system.
+
+To do so, we'll use a little it of automation.  Virtual machine orchestration is a really neat trick and a skill well worth learning.  I don't pretend to know a lot about it, but there are multiple resources out there to learn more. I'll link some of them below.
+
+In this guide, I've used the program Vagrant for VM orchestration. It uses a very easy to understand YAML syntax and there are many VM images already available on the interwebs which makes our job easy as pie.
+
+### Downloads
+I'm using Windows 10 and 11 on different systems but there are versions of this software available for Windows, Linux and MacOs.
+
+Go ahead and download Virtualbox or whatever hypervisor you like. Vagrant works with all the major players.
+
+On windows, I use the nifty winget
+
+winget install virtualbox
+winget install vagrant
+
+You can write your own YAML file or just use mine as a start.
+
+### Engage
+
+Make a new folder wherever you want your VM to reside on your host system.
+Plonk your .vagrant YAML file in there. 
+Navigate to the folder or just specify the traversal on the shell prompt and write
+
+vagrant up
+
+simple as that. Vagrant will find your tasty VM image and download it for you.
+
+### Level up.
+
+Tryhackme's attack box and Kali box both have these sets of username and password files that are really handy for doing hacking things. so 
+
+wget ______
+unzip ____
+rm -f _____.zip
+
+
+get your .ovpn file from tryhackme. I just stick it in the home directory.
+
+I always load up a terminal session and tmux and make few windows. Here's my little bash script that I auto run every time,
+
+I don't know if this is true for everyone but my connection has problems at the default mtu rate of 1500. I think quite a few people have this issue with the vpn connection and it puts a lot of people off. It just takes one line
+
+set eth0 mtu 1200 
+
+Doing that should solve vpn connection issues.
+
+If you want to use burpsuite but don't want to use the included chromium based web browser you may want to open firefox and install the foxyproxy plugin and set it up for burpsuite (see the burpsuite room for more info.)
+
+And that, is pretty much, that. It's so much more responsive than the web-based attackbox. No offence to THM it's useable for most things but trying to use Burpsuite or RDP from those machines is a frustrating battle. I also realise it is the only option for some people if they have no access to UDP connections. The THM vpn is UDP only, no TCP which limits access from some countries.
+
+Please let me know if you have any suggestions or corrections. I'm sure there are better ways to do this and I'd love to learn!
+
+See you on them inter-webs!
