@@ -1,0 +1,26 @@
+# SSRF Serverside Request Forgery
+
+## Page 1
+
+The first question is the title...
+
+There are regular SSRF attacks and blind attacks. The answer to Q2 is blind. They differ in what the attacker sees. If they do not get feedback, it is a blind attack.
+
+## Page 2
+
+This one flummoxed me for a while.
+Read through the techniques on the static site.
+
+Try to come up with a payload for the URL.
+
+the server= changes the subdomain, so if we could put our whole URL in here and then cut off the 'rest' of the domain name we can control exactly what server requests. One of the pages told us we can cut off the end of a URL by adding '&x=' so:
+
+https://website.thm/item/2?server=server.website.thm/flag?id=9&x=
+
+This will create a request:
+https://server.website.thm/flag?id=9&x=website.thm/item/2?server=
+
+with everything after the &x= ignored we have our URL...and our flag.
+
+
+
