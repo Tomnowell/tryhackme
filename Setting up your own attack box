@@ -43,9 +43,13 @@ get your .ovpn file from tryhackme. I just stick it in the home directory.
 
 I always load up a terminal session and tmux and make few windows. Here's my little bash script that I auto run every time,
 
-I don't know if this is true for everyone but my connection has problems at the default mtu rate of 1500. I think quite a few people have this issue with the vpn connection and it puts a lot of people off. It just takes one line
+I don't know if this is true for everyone but my connection has problems at the default mtu rate of 1500. I think quite a few people have this issue with the vpn connection and it puts a lot of people off. It just takes one lin
 
-set eth0 mtu 1200 
+sudo ip link set dev eth0 mtu 1200
+
+or
+
+sudo ifconfig eth0 mtu 1200
 
 Doing that should solve vpn connection issues.
 
