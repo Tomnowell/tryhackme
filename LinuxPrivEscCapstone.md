@@ -28,9 +28,11 @@ Copy shadow of missy and passwd entry of missy
 unshadow on local machine
 john the ripper on local machine with rockyou.txt
 password is ........
-get flag 1
+get flag 1:
+THM-42828719920544
 
-Missy can run /usr/bin/find as sudo with no password (does not work with PATH find )
+
+Mi ssy can run /usr/bin/find as sudo with no password (does not work with PATH find )
 
 so from GTFO bin we modify the sudo find command to:
 
