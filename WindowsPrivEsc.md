@@ -143,7 +143,7 @@ nt authority\system:
 get flag!
 THM{INSECURE_SVC_CONFIG}
 
-# Final challenge
+# SE Backup/Restore
 
 For the final challenge we will need to use impacket it may be easier to use the attackbox for this task. Or install impacket. This is an optional install on Kali-linux:
 
